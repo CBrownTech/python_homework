@@ -83,30 +83,28 @@ def repeat(string, count):
 
 # Task 7: Student scores, using kwargs.
 def student_scores(mode, **kwargs):
-    if mode == "mean":
+    if mode == "best":
+        best_name = None
+        best_score = None
+        for key, value in kwargs.items():
+            if best_score is None or value > best_score:
+                best_name = key
+                best_score = value
+        return best_name
+
+    elif mode == "mean":
         return sum(kwargs.values()) / len(kwargs)
-    elif mode == "best":
-        return max(kwargs, key=lambda k: kwargs[k])
+        
     else:
         return "Invalid data was provided."
 
 # Task 8: Titleize, with String and List Operations.
 def titleize(string):
-    small = {
-        "and",
-        "or",
-        "the",
-        "a",
-        "an",
-        "but",
-        "in",
-        "on",
-        "at",
-        "to",
-        "for",
-        "of",
-        "as",
-        "by",
+    small = {"and","or","the",
+             "a","an","but",
+             "in","on","at",
+             "to","for","of",
+             "as","by",
     }
     words = string.split()
     if not words:
