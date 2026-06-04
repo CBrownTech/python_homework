@@ -1,0 +1,65 @@
+Task 5: Ethical Web Scraping - Wikipedia (https://en.wikipedia.org/robots.txt)
+
+================================================================================
+1. Which sections of the website are restricted for crawling?
+================================================================================
+
+For most crawlers (User-agent: *), Wikipedia restricts these main areas:
+
+- /w/          MediaWiki backend (PHP scripts, loaders, internal tools)
+- /api/        API endpoints (except a few narrow Allow exceptions)
+- /trap/       Honeypot paths used to detect abusive bots
+- /wiki/Special: (and localized equivalents such as Spezial:, Spesial:)
+               Dynamically generated "Special" pages (search, tools, etc.)
+
+Wikipedia also disallows many non-article paths, including:
+
+- English Wikipedia administration and community-process pages, such as
+  Articles for deletion, Requests for adminship, Requests for arbitration,
+  Checkuser, Copyright problems, Protected titles, WikiProject Spam, and
+  MediaWiki spam-blacklist pages.
+
+- Similar deletion, admin, user-namespace, and moderation pages in other
+  language Wikipedias (German, Italian, Spanish, Chinese, and others listed
+  in the file).
+
+- Search URLs in several languages (for example Arabic, Hebrew, Chinese,
+  Russian, Hungarian, and Portuguese Special:Search paths).
+
+Regular encyclopedia articles under /wiki/Article_Name are generally not
+listed in these Disallow rules, so polite crawlers are steered toward article
+content rather than infrastructure or internal discussion pages.
+
+================================================================================
+2. Are there specific rules for certain user agents?
+================================================================================
+
+Yes. Wikipedia's robots.txt uses different rules for different bots:
+
+Fully blocked (Disallow: /) for the entire site:
+  Examples include MJ12bot, Mediapartners-Google*, UbiCrawler, HTTrack,
+  WebCopier, wget, WebReaper, NPBot, and many other site copiers or bots
+  described as misbehaving, too fast, or ignoring rate limits.
+
+Allowed with no path restrictions (empty Disallow:):
+  IsraBot and Orthogaffe are listed as Wikipedia work bots with no disallowed
+  paths in their sections.
+
+Rate-limited:
+  SemrushBot must use Crawl-delay: 5 (at least 5 seconds between requests
+  per the site's interpretation of crawl-delay).
+
+Default rules for everyone else (User-agent: *):
+  A few Allow exceptions (for example mobileview API, load.php, REST docs),
+  then the Disallow paths described in question 1 above.
+
+================================================================================
+3. Reflection: Why do websites use robots.txt?
+================================================================================
+
+robots.txt is a voluntary guide that tells automated programs which parts of a
+site they should not crawl. It helps protect server capacity, reduce abuse from
+high-speed or bulk copying tools, and keep private or sensitive areas (such as
+admin pages) out of search indexes. Ethical scrapers read robots.txt before
+collecting data, respect Disallow paths, crawl slowly, and use official APIs when
+available—so access remains fair for human readers and well-behaved bots alike.
