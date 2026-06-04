@@ -1,0 +1,21 @@
+Task 2 - Durham County Library search result selectors
+URL: https://durhamcounty.bibliocommons.com/v2/search?query=learning%20spanish&searchType=smart
+
+Search result list item (one book in the results list):
+  Tag: li
+  Class: row cp-search-result-item
+
+Title:
+  Tag: h3
+  Class: cp-title
+  (text is in child span with class: title-content)
+
+Author (link; multiple authors possible):
+  Tag: a
+  Class: author-link
+  (inside span with class: cp-author-link)
+
+Format and year:
+  Container div class: cp-format-info
+  Span with format/year text class: display-info-primary
+  (inside span with class: display-info)
