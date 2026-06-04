@@ -1,0 +1,28 @@
+Assignment 8 - Challenges and How I Resolved Them
+
+1. Finding the Top 10 on the assigned OWASP project page
+   The URL https://owasp.org/www-project-top-ten/ describes the project but does
+   not list all ten risks on that single page. It links to the current release at
+   https://owasp.org/Top10/2025/. I used Selenium to open the project page, then
+   followed that link with XPath before scraping the numbered list.
+
+2. Choosing the right XPath
+   The page has many links (navigation, translations, sponsors). I used developer
+   tools and trial XPath expressions until I found an ordered list with exactly
+   ten items: //ol/li/a[contains(@href,'/Top10/2025/A')]. That matched the
+   Top 10:2025 List section without grabbing unrelated links.
+
+3. Durham County Library dynamic content
+   Search results load with JavaScript, so requests/BeautifulSoup alone would not
+   work. Selenium with headless Chrome and CSS selectors (from inspecting li, title,
+   author, and format elements) was needed to wait for the page and extract data.
+
+4. Wikipedia robots.txt and console output
+   Printing the full robots.txt page source caused a UnicodeEncodeError on Windows
+   in some terminals. The scrape still worked; saving or printing with UTF-8 encoding
+   avoids that issue.
+
+5. Multiple authors and CSV quoting
+   Some library books have more than one author. Joining names with semicolons and
+   writing CSV with the csv module keeps commas in names from breaking the file
+   format.
